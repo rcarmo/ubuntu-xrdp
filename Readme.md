@@ -7,8 +7,9 @@ The original message had a full implementation of multi-user `xrdp` with `xorgxr
 ## Confirmed Working:
 
 * Multi-display support on Mac clients (tested with three monitors on the client, RDP works across all of them on all clients)
-* High-bandwidth audio with the Mac App Store Remote Desktop Client (no settings to pick audio bandwidth)
+* High-bandwidth audio with the Mac App Store Remote Desktop Client (no settings to pick audio quality/bandwidth)
 * (Garbled) compressed audio with Jump Dekstop for macOS
+* Clipboard (plain text, both ways)
 
 ## Usage
 
