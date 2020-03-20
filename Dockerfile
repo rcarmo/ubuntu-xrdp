@@ -66,11 +66,13 @@ ARG ADDITIONAL_PACKAGES=""
 ENV ADDITIONAL_PACKAGES=${ADDITIONAL_PACKAGES}
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt update && apt -y full-upgrade && apt install -y \
+RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections \
+ && apt update && apt -y full-upgrade && apt install -y \
   ca-certificates \
   crudini \
   firefox \
   less \
+  libmp3lame0 \
   locales \
   openssh-server \
   pepperflashplugin-nonfree \
@@ -78,6 +80,7 @@ RUN apt update && apt -y full-upgrade && apt install -y \
   ssl-cert \
   sudo \
   supervisor \
+  ttf-mscorefonts-installer \
   uuid-runtime \
   vim \
   wget \
