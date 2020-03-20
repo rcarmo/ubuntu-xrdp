@@ -2,7 +2,7 @@ version: '3.5'
 services:
   terminalserver:
     build: ./
-    image: danielguerra/ubuntu-xrdp
+    image: rcarmo/ubuntu-xrdp
     container_name: uxrdp
     hostname: terminalserver
     restart: always
@@ -11,11 +11,10 @@ services:
        PASSWORDHASH: $$1$$z53Cg/fV$$06o379IvIOxj/ESruVKrG1
        IDLETIME: 11
     ports:
-      - "3389:3389"
+      - "3390:3389"
       - "2222:22"
     volumes:
       - ssh:/etc/ssh/
-      - /home/:/home/
 
 volumes:
   ssh:

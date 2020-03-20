@@ -1,40 +1,31 @@
-## Ubuntu 18.04/16.04  Multi User Remote Desktop Server
+## Ubuntu LTS (18.04) Multi User Remote Desktop Server
 
-Fully implemented Multi User xrdp
-with xorgxrdp and pulseaudio
-on Ubuntu 16.04/18.04.
-Copy/Paste and sound is working.
-Users can re-login in the same session.
-Xfce4, Firefox are pre installed.
+This is a fork of [danielguerra69/ubuntu-xrdp](https://github.com/danielguerra69/ubuntu-xrdp) with some customizations, tagged as `rcarmo/ubuntu-xrdp`.
 
-# Tags
-
-danielguerra/ubuntu-xrdp:16.04
-danielguerra/ubuntu-xrdp:18.04  or latest
+The original message had a full implementation of multi-user `xrdp` with `xorgxrdp` with copy/paste and audio support via `pulseaudio`, plus the ability to reconnect to previous sessions. I've added `MP3` and `AAC` support to save audio bandwidth when using the standard Microsoft Remote Desktop clients.
 
 ## Usage
 
 Start the rdp server
-(WARNING: use the --shm-size 1g or firefox/chrome will crash)
+(WARNING: `--shm-size 1g` is required to ensure Firefox/Chrome doesn't crash)
 
 ```bash
 docker run -d --name uxrdp --hostname terminalserver --shm-size 1g -p 3389:3389 -p 2222:22 danielguerra/ubuntu-xrdp
 ```
-*note if you already use a rdp server on 3389 change -p <my-port>:3389
-	  -p 2222:22 is for ssh access ( ssh -p 2222 ubuntu@<docker-ip> )
+> *Note*: if you already have an RDP server on 3389 change `-p <my-port>:3389`.  `-p 2222:22` is for `ssh` access (`ssh -p 2222 ubuntu@<docker-ip> )
 
-Connect with your remote desktop client to the docker server.
-Use the Xorg session (leave as it is), user and pass.
+Connect with your remote desktop client to the `docker` server. If your client doesn't provide a native authentication prompt, you will get a graphical one inside the RDP session. Use the `Xorg` session configuration (leave as is), then enter your username and password.
 
-## Sample user
+## Sample User
 
-There is a sample user with sudo rights
+There is a sample user with `sudo` rights:
 
+```
 Username: ubuntu
 Password: ubuntu
+```
 
-
-You can set a PASSWORDHASH
+You can set a `PASSWORDHASH` externally:
 
 First create a password hash
 
@@ -42,34 +33,34 @@ First create a password hash
 openssl passwd -1 'newpassword'
 ```
 
-Run the xrdp container with your hash
+Run the container with your hash:
 
 ```bash
 docker run -d -e PASSWORDHASH='$1$Cm8EQjXg$7dJeRsw6TLvgxsl3.pBRZ1'
 ```
 
-You can change your password in the rdp session in a terminal
+You can change your password inside the RDP session from the terminal:
 
 ```bash
 passwd
 ```
 
-## Add new users
+## Adding New Users
 
-No configuration is needed for new users just do
+No configuration is needed for new users. Just do
 
 ```bash
 docker exec -ti uxrdp adduser mynewuser
 ```
 
-After this the new user can login
+After this the new user can login.
 
-## Add new services
+## Adding New Services
 
-To make sure all processes are working supervisor is installed.
-The location for services to start is /etc/supervisor/conf.d
+To make sure standard processes are working `supervisor` is installed.
+The location for adding services to start automatically is `/etc/supervisor/conf.d`
 
-Example: Add mysql as a service
+### Example: Add `mysql` as a service
 
 ```bash
 apt-get -yy install mysql-server
@@ -82,26 +73,29 @@ supervisorctl update
 ```
 
 ## Volumes
+
 This image uses two volumes:
-1. `/etc/ssh/` holds the sshd host keys and config
+1. `/etc/ssh/` holds the `sshd` host keys and config
 2. `/home/` holds the `ubuntu/` default user home directory
 
-When bind-mounting `/home/`, make sure it contains a folder `ubuntu/` with proper permission, otherwise no login will be possible.
+When bind-mounting `/home/`, make sure it contains a folder `ubuntu/` with proper permissions, otherwise login will block/fail:
 
 ```
 mkdir -p ubuntu
 chown 999:999 ubuntu
 ```
 
-## Installing additional packages during build
+## Installing Additional Packages During Build
 
-The Dockerfile has support for the build argument ADDITIONAL_PACKAGES to install additional packages during build. Either pass it with `--build-arg` during `docker build` or add it 
+The Dockerfile has support for the build argument ADDITIONAL_PACKAGES to install additional packages during build. 
+
+Either pass that in with `--build-arg` during `docker build` or add it 
 as `args` in your `docker-compose.override.yml` and run `docker-compose build`.
 
-## To run with docker-compose
+## Using `docker-compose`
 
 ```bash
-git clone https://github.com/danielguerra69/ubuntu-xrdp.git
+git clone https://github.com/rcarmo/ubuntu-xrdp.git
 cd ubuntu-xrdp/
 vi docker-compose.override.yml # if you want to override any default value
 docker-compose up -d

@@ -50,6 +50,8 @@ override_dh_auto_configure:
 	    --enable-fuse \
 	    --enable-rfxcodec \
 	    --enable-opus \
+		--enable-mp3lame \
+		--enable-fdk-aac \
 	    --enable-painter \
 	    --enable-vsock \
 	    ${CONFIGURE_ARGS}

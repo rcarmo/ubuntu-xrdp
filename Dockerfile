@@ -1,5 +1,5 @@
 FROM ubuntu:18.04 as base
-LABEL maintainer="Daniel Guerra"
+LABEL maintainer="Rui Carmo"
 
 # Versions
 ARG XRDP_VER="0.9.10"
@@ -18,7 +18,8 @@ RUN sed -i "s/# deb-src/deb-src/g" /etc/apt/sources.list
 ENV BUILD_DEPS="git autoconf pkg-config libssl-dev libpam0g-dev \
     libx11-dev libxfixes-dev libxrandr-dev nasm xsltproc flex \
     bison libxml2-dev dpkg-dev libcap-dev libfuse-dev libpulse-dev libtool \
-    xserver-xorg-dev wget ssl-cert"
+    xserver-xorg-dev wget ssl-cert \
+    libmp3lame0 libmp3lame-dev libfdk-aac-dev"
 RUN apt update && apt -y full-upgrade && apt install -y sudo apt-utils software-properties-common $BUILD_DEPS
 
 # Build xrdp
