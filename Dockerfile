@@ -71,6 +71,7 @@ RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula selec
   ca-certificates \
   crudini \
   firefox \
+  htop \
   less \
   libmp3lame0 \
   locales \
