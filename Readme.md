@@ -4,6 +4,12 @@ This is a fork of [danielguerra69/ubuntu-xrdp](https://github.com/danielguerra69
 
 The original message had a full implementation of multi-user `xrdp` with `xorgxrdp` with copy/paste and audio support via `pulseaudio`, plus the ability to reconnect to previous sessions. I've added `MP3` and `AAC` support to save audio bandwidth when using the standard Microsoft Remote Desktop clients (may not work reliably - I'm still experimenting, mostly with Mac and iOS).
 
+## Confirmed Working:
+
+* Multi-display support on Mac clients (tested with three monitors on the client, RDP works across all of them on all clients)
+* High-bandwidth audio with the Mac App Store Remote Desktop Client (no settings to pick audio bandwidth)
+* (Garbled) compressed audio with Jump Dekstop for macOS
+
 ## Usage
 
 Start the rdp server
