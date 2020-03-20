@@ -10,7 +10,7 @@ Start the rdp server
 (WARNING: `--shm-size 1g` is required to ensure Firefox/Chrome doesn't crash)
 
 ```bash
-docker run -d --name uxrdp --hostname terminalserver --shm-size 1g -p 3389:3389 -p 2222:22 danielguerra/ubuntu-xrdp
+docker run -d --name uxrdp --hostname terminalserver --shm-size 1g -p 3389:3389 -p 2222:22 rcarmo/ubuntu-xrdp
 ```
 > *Note*: if you already have an RDP server on 3389 change `-p <my-port>:3389`.  `-p 2222:22` is for `ssh` access (`ssh -p 2222 ubuntu@<docker-ip> )
 
